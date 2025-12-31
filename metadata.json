@@ -1,0 +1,5 @@
+{
+  "name": "Digital Riyal Network Treasury wallet",
+  "description": "A professional-grade Solana wallet and token administration dashboard for minting, burning, freezing, and airdropping SPL tokens.",
+  "requestFramePermissions": []
+}
