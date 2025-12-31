@@ -31,7 +31,8 @@ export enum AppTab {
   FACTORY = 'factory',
   MANAGER = 'manager',
   AIRDROP = 'airdrop',
-  SECURITY = 'security'
+  SECURITY = 'security',
+  DEPLOYMENT = 'deployment'
 }
 
 export enum SolanaCluster {

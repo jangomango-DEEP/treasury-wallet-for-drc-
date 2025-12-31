@@ -10,6 +10,7 @@ import TokenFactory from './components/TokenFactory';
 import TokenManager from './components/TokenManager';
 import AirdropTool from './components/AirdropTool';
 import SecurityPanel from './components/SecurityPanel';
+import DeploymentPanel from './components/DeploymentPanel';
 import Sidebar from './components/Sidebar';
 
 // Logo SVG matching the user's provided "DR" hexagon logo
@@ -171,11 +172,8 @@ const App: React.FC = () => {
 
   const handleLogout = () => {
     if (window.confirm("Lock wallet and clear session?")) {
-      // Explicitly clear state first to trigger UI update
       setWallet(null);
-      // Clear storage
       localStorage.removeItem('sol_wallet');
-      // Final reload to clear any residual cache/in-memory states
       window.location.reload();
     }
   };
@@ -281,9 +279,6 @@ const App: React.FC = () => {
                   ) : (otpSent ? 'Verify Identity' : 'Send Code')}
                 </button>
               </div>
-              <p className="text-[10px] text-slate-500 text-center px-4">
-                {otpSent ? `Check your inbox/SMS at ${identifier}. We've sent an access code.` : 'Your wallet can be restored via any linked email or phone number in the cluster.'}
-              </p>
             </div>
           ) : (
             <div className="space-y-4 text-left">
@@ -310,16 +305,6 @@ const App: React.FC = () => {
               </div>
             </div>
           )}
-          
-          <div className="text-xs text-slate-500 px-4">
-            Security: Credentials are used locally to sign transactions. Backend recovery clusters provide emergency restoration.
-          </div>
-
-          {localStorage.getItem('sol_wallet') && (
-            <button onClick={() => { if(confirm("Wipe all local data? Security clusters allow recovery later.")) { localStorage.clear(); window.location.reload(); } }} className="text-[10px] text-red-500/30 hover:text-red-500 uppercase tracking-tighter transition-colors">
-              Wipe Local Device Cache
-            </button>
-          )}
         </div>
       </div>
     );
@@ -332,7 +317,7 @@ const App: React.FC = () => {
       <main className="flex-1 p-6 md:p-10 overflow-y-auto">
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div className="flex flex-col gap-1">
-            <h2 className="text-2xl font-bold capitalize tracking-tight">{activeTab}</h2>
+            <h2 className="text-2xl font-bold capitalize tracking-tight">{activeTab.replace('-', ' ')}</h2>
             <div className="flex items-center gap-3">
               <p className="text-slate-400 text-sm font-medium">Admin: {wallet.publicKey.slice(0, 4)}...{wallet.publicKey.slice(-4)}</p>
               <span className="text-slate-800">|</span>
@@ -369,6 +354,7 @@ const App: React.FC = () => {
           {activeTab === AppTab.MANAGER && <TokenManager tokens={tokens} setTokens={setTokens} solana={solana} />}
           {activeTab === AppTab.AIRDROP && <AirdropTool tokens={tokens} />}
           {activeTab === AppTab.SECURITY && <SecurityPanel wallet={wallet} />}
+          {activeTab === AppTab.DEPLOYMENT && <DeploymentPanel />}
         </div>
       </main>
     </div>
