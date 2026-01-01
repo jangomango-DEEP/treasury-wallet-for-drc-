@@ -1,2 +1,4 @@
 # Digital Riyal Treasury
-Your professional Solana wallet is now live.
+Professional Solana SPL-Token Management Suite.
+
+Project deployed successfully from AI Studio.
